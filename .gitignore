@@ -1,0 +1,24 @@
+.env
+# --- Sensitive Local Configs & Env Files ---
+**/.env
+**/.env.property
+**/application-local.properties
+**/application-local.yml
+**/application-dev.properties
+**/application-prod.properties
+
+# --- Docker Local Configurations ---
+**/docker.yml
+**/docker-compose.override.yml
+
+# --- Build Artifacts & IDE Files ---
+**/target/
+**/.gradle/
+**/build/
+.idea/
+*.iml
+.DS_Store
+
+# --- Logs ---
+**/logs/
+*.log

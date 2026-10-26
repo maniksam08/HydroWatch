@@ -1,0 +1,38 @@
+HYDRO-WATCH: WATER QUALITY GUIDELINES & INCIDENT RESPONSE SOP
+Source: Australian Drinking Water Guidelines (ADWG) & Queensland EPP Water Guidelines
+
+1. ENVIRONMENTAL VALUES (EVs) AND WATER QUALITY OBJECTIVES (WQOs)
+The primary management goals for receiving waters are to protect and enhance aquatic ecosystems and ensure public safety. Aquatic ecosystem water quality objectives establish the baseline for normal operating conditions.
+
+1.1 Normal Water Quality Parameters
+- pH Levels: The normal pH range for freshwater rivers is between 6.5 and 8.5.
+- Dissolved Oxygen (DO): Normal DO saturation should remain between 60% and 110%. In concentration, DO levels must remain above 5.0 mg/L to support healthy aquatic life.
+- Total Phosphorus: Must remain less than 70 micrograms per litre (µg/L).
+- Chlorophyll-a: Must remain less than 9 µg/L.
+- Temperature: Normal river water temperature ranges between 15°C and 25°C.
+
+2. ANOMALY THRESHOLDS & ENVIRONMENTAL INDICATORS
+- Low pH (Acidic): A pH dropping below 6.0 indicates high acidity, frequently caused by industrial runoff, chemical spills, or acid sulfate soil disturbances.
+- High pH (Alkaline): A pH rising above 8.5 can indicate excessive algal blooms or industrial discharge.
+- Hypoxia (Low Oxygen): DO levels dropping below 5.0 mg/L cause stress to aquatic life. DO levels below 3.0 mg/L indicate extreme hypoxia and imminent fish kill events.
+- Temperature Spikes: Rapid, unnatural increases in water temperature often correlate with thermal pollution, such as cooling water discharge from power plants or industrial facilities.
+
+3. CRISIS MANAGEMENT & INCIDENT CLASSIFICATION (ADWG Element 6)
+Incidents are classified into two categories based on their threat level to human health and environmental integrity.
+
+3.1 Type 1 Incidents (Critical / High Consequence)
+- Definition: Potentially serious incidents presenting significant human health risks or major environmental harm (e.g., Extreme hypoxia below 3.0 mg/L, major toxic spills, extreme pH drops).
+- Reporting SOP: Must be reported immediately by direct voice contact to the Water Incident Coordinator and relevant environmental protection agencies (EPA). Direct voice contact must be followed up with a written notification/email within 24 hours.
+- Action SOP: Immediate environmental team dispatch is required. The emergency response plan must be activated, and public warnings may need to be issued.
+
+3.2 Type 2 Incidents (Warning / Low Consequence)
+- Definition: Lesser incidents representing a low risk to human health and possible but localized environmental harm (e.g., pH dropping to 6.3, or DO dropping to 4.5 mg/L).
+- Reporting SOP: Type 2 incidents do not require immediate emergency phone calls. They must be reported to the relevant agencies via email or notification system within 24 hours. If the incident occurs on a weekend or public holiday, it must be reported by 12:00 PM the next business day.
+- Action SOP: Increased monitoring frequency is triggered to ensure the anomaly does not degrade into a Type 1 incident.
+
+4. POST-INCIDENT PROTOCOLS
+Following any Type 1 or Type 2 water quality incident, an investigation must occur. The investigation must document:
+- The initiating cause of the anomaly.
+- How the problem was first identified by the telemetry system.
+- The most critical actions taken during the response.
+- Review of the existing SOP to improve preparedness and planning for future incidents.
