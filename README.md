@@ -56,8 +56,8 @@ sensor-data-collector  --->  data-anomaly-detector  --->  real-time-alert
 ### Run
 
 ```bash
-git clone https://github.com/maniksam08/<repo-name>.git
-cd <repo-name>
+git clone https://github.com/maniksam08/HydroWatch.git
+cd HydroWatch
 
 # set your Gemini API key (see the chatbot service's configuration for the exact variable name)
 export GEMINI_API_KEY=your_key_here
@@ -69,7 +69,7 @@ This starts all three services together with Redis. Once running, open the dashb
 
 ## RAG Chatbot
 
-The chatbot answers questions using the SOP documents placed in `src/main/resources/docs/`. At startup these are embedded with the Gemini embedding model and stored in a vector store. When you ask a question, the most relevant passages are retrieved and passed to the Gemini chat model.
+The chatbot answers questions using the SOP documents placed in `real-time-alert/src/main/resources/docs/`. At startup these are embedded with the Gemini embedding model and stored in a vector store. When you ask a question, the most relevant passages are retrieved and passed to the Gemini chat model.
 
 Currently the chatbot provides **context and explanations only** (for example, what a turbidity spike means). It does not take actions yet.
 
