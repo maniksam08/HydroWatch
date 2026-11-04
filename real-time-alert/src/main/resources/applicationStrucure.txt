@@ -11,5 +11,9 @@ spring.ai.model.embedding.text=EMBEDDING_MODEL_PROVIDER
 spring.ai.google.genai.api-key=API_KEY
 spring.ai.google.genai.chat.options.model=CHAT_MODEL
 
+spring.ai.openai.api-key=gsk_your_groq_api_key_here
+spring.ai.openai.base-url=https://api.groq.com/openai
+spring.ai.openai.chat.options.model=llama-3.3-70b-versatile
+
 spring.ai.google.genai.embedding.api-key=API_KEY
 spring.ai.google.genai.embedding.text.model=EMBEDDING_MODEL

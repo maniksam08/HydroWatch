@@ -43,7 +43,6 @@ public class AnomalyProcessorService {
     public void process() {
         while (!Thread.currentThread().isInterrupted()) {
             try {
-                // Waiting for data to be added to the queue
                 SensorData sensorData = sensorDataQueue.take();
                 LOG.info("Processing sensor data: {}", sensorData);
 
@@ -83,10 +82,9 @@ public class AnomalyProcessorService {
     private void sendAnomalyToStream(Anomaly anomaly){
         try {
             StreamOperations<String, String, String> streamOps = redisTemplate.opsForStream();
-            // Convert sensor data to JSON format
+
             String dataJson = objectMapper.writeValueAsString(anomaly);
 
-            // Send the data to Redis stream
             streamOps.add(RedisStreams.ANOMALIES_STREAM, Map.of(RedisStreams.ANOMALY_DATA_KEY, dataJson));
             LOG.info("Anomaly data was sent: {}", dataJson);
         } catch (Exception e) {

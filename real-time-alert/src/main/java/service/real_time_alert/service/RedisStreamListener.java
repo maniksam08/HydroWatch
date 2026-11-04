@@ -22,6 +22,10 @@ import java.util.List;
 
 @Service
 public class RedisStreamListener {
+
+    private final AlertService alertService;
+    private final LatestReadingsStore latestReadings;
+
     private static final Logger LOG = LoggerFactory.getLogger(RedisStreamListener.class);
 
     private static final String ANOMALY_CONSUMER_NAME = "realtime-anomalies-stream-consumer";
@@ -40,10 +44,14 @@ public class RedisStreamListener {
 
     public RedisStreamListener(@Qualifier("redisTemplate") RedisTemplate<String, String> redisTemplate,
                                SimpMessagingTemplate messagingTemplate,
-                               ObjectMapper objectMapper) {
+                               ObjectMapper objectMapper,
+                               AlertService alertService,
+                               LatestReadingsStore latestReadings) {
         this.redisTemplate = redisTemplate;
         this.messagingTemplate = messagingTemplate;
         this.objectMapper = objectMapper;
+        this.alertService= alertService;
+        this.latestReadings = latestReadings;
 
         createConsumerGroups();
     }
@@ -73,6 +81,7 @@ public class RedisStreamListener {
                             LOG.info("Received anomaly data: {}", anomaly);
 
                             messagingTemplate.convertAndSend("/topic/anomalies", formatAnomalyMessage(anomaly));
+                            alertService.process(anomaly);
                         } catch (JsonProcessingException e) {
                             LOG.error("Failed to parse anomaly data: {}", json, e);
                         }
@@ -105,6 +114,7 @@ public class RedisStreamListener {
                         try {
                             SensorData data = objectMapper.readValue(json, SensorData.class);
                             messagingTemplate.convertAndSend("/topic/sensor-data", data);
+                            latestReadings.update(data);
                         } catch (JsonProcessingException e) {
                             LOG.error("Failed to parse sensor data: {}", json, e);
                         }

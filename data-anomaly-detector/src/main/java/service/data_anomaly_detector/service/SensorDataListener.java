@@ -31,7 +31,6 @@ public class SensorDataListener {
     private static final int MAX_RECORDS = 30;
     private static final Duration BLOCK_DURATION = Duration.ofSeconds(3);
 
-    // Queue for passing data between threads
     private final BlockingQueue<SensorData> sensorDataQueue;
     private final ThreadPoolTaskExecutor asyncExecutor;
     private final RedisTemplate<String, String> redisTemplate;
@@ -61,9 +60,7 @@ public class SensorDataListener {
             try {
                 List<MapRecord<String, String, String>> records = streamOps.read(
                         Consumer.from(CONSUMER_GROUP, CONSUMER_NAME),
-                        // Read up to max records, blocking for specified time if none are available
                         StreamReadOptions.empty().count(MAX_RECORDS).block(BLOCK_DURATION),
-                        // Read from the last acknowledged record
                         StreamOffset.create(RedisStreams.WATER_QUALITY_STREAM, ReadOffset.lastConsumed())
                 );
 
@@ -73,7 +70,6 @@ public class SensorDataListener {
                         SensorData sensorData = objectMapper.readValue(json, SensorData.class);
                         LOG.info("Received sensor data: {}", sensorData);
 
-                        // Put the data into the queue
                         sensorDataQueue.put(sensorData);
                     } catch (JsonProcessingException e) {
                         LOG.error("Failed to parse sensor data: {}", json, e);

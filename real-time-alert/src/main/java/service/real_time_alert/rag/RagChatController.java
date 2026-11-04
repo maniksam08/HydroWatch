@@ -41,8 +41,6 @@ public class RagChatController {
                         Answer the user's question accurately using ONLY the provided context.
                         If the answer is not contained in the context, state that the official documents do not contain that information.
                         """)
-                // The advisor searches the vector store and adds the matching chunks
-                // to the prompt automatically for every request.
                 .defaultAdvisors(QuestionAnswerAdvisor.builder(vectorStore)
                         .searchRequest(SearchRequest.builder().topK(3).build())
                         .build())
@@ -68,11 +66,7 @@ public class RagChatController {
         }
     }
 
-    /**
-     * Beans are kept in a separate nested configuration class to avoid a circular
-     * dependency (the controller needs the VectorStore bean).
-     * The vector store is in-memory: documents are embedded again on every startup.
-     */
+
     @Configuration
     static class RagConfig {
 

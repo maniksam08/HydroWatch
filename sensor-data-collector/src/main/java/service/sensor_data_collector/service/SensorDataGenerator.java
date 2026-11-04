@@ -27,7 +27,6 @@ public class SensorDataGenerator {
     private final ObjectMapper objectMapper;
     private BufferedReader reader;
 
-    // Fallback values in case a row is missing data
     private double lastTemp = 20.0;
     private double lastPh = 7.0;
     private double lastOxygen = 6.0;
@@ -41,10 +40,9 @@ public class SensorDataGenerator {
     @PostConstruct
     public void init() {
         try {
-            // Rename your downloaded file to sensor-data.csv and place in src/main/resources/
             reader = new BufferedReader(new InputStreamReader(new ClassPathResource("sensor-data.csv").getInputStream()));
-            reader.readLine(); // Skip Row 1 (Headers)
-            reader.readLine(); // Skip Row 2 (Units)
+            reader.readLine();
+            reader.readLine();
             LOG.info("CSV Reader successfully initialized. Skipped header and units rows.");
         } catch (Exception e) {
             LOG.error("Could not load CSV file. Ensure it is named 'sensor-data.csv' and is in the resources folder.", e);
@@ -62,16 +60,12 @@ public class SensorDataGenerator {
                 return;
             }
 
-            // Split by comma, preserving empty strings between commas
             String[] columns = line.split(",", -1);
 
-            // Extract and clean data using the specific column indexes of your downloaded dataset
-            // Index 9: Temperature, Index 11: Dissolved Oxygen, Index 15: pH
             double temperature = parseOrDefault(columns[9], lastTemp);
             double oxygen = parseOrDefault(columns[11], lastOxygen);
             double ph = parseOrDefault(columns[15], lastPh);
 
-            // Update fallbacks for the next missing row
             lastTemp = temperature;
             lastOxygen = oxygen;
             lastPh = ph;
@@ -85,7 +79,6 @@ public class SensorDataGenerator {
         }
     }
 
-    // Helper method to safely parse numbers and handle empty/blank CSV columns
     private double parseOrDefault(String value, double defaultValue) {
         if (value == null || value.trim().isEmpty()) {
             return defaultValue;

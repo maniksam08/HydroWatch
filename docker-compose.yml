@@ -1,0 +1,80 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: postgres
+    environment:
+      POSTGRES_DB: hydrowatch
+      POSTGRES_USER: hydrowatch
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U hydrowatch -d hydrowatch" ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - hydrowatch-net
+
+
+  redis:
+    image: redis:7-alpine
+    container_name: hydrowatch-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - hydrowatch-net
+
+  sensor-data-collector:
+    build: ./sensor-data-collector
+    container_name: sensor-data-collector
+    environment:
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    depends_on:
+      - redis
+    networks:
+      - hydrowatch-net
+
+  data-anomaly-detector:
+    build: ./data-anomaly-detector
+    container_name: data-anomaly-detector
+    environment:
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    depends_on:
+      - redis
+    networks:
+      - hydrowatch-net
+
+  real-time-alert:
+    build: ./real-time-alert
+    container_name: real-time-alert
+    ports:
+      - "8080:8080"
+    environment:
+      DB_URL: jdbc:postgresql://postgres:5432/hydrowatch
+      DB_USER: hydrowatch
+      DB_PASSWORD: ${DB_PASSWORD}
+      BOLNA_ENABLED: "true"
+      BOLNA_API_KEY: ${BOLNA_API_KEY}
+      BOLNA_AGENT_ID: ${BOLNA_AGENT_ID}
+      BOLNA_OPERATOR_PHONE: ${BOLNA_OPERATOR_PHONE}
+      BOLNA_ESCALATION_PHONE: ${BOLNA_ESCALATION_PHONE}
+      TOOLS_API_KEY: ${TOOLS_API_KEY}
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
+      GROQ_API_KEY: ${GROQ_API_KEY}
+    depends_on:
+      redis:
+        condition: service_started
+      postgres:
+        condition: service_healthy
+    networks:
+      - hydrowatch-net
+volumes:
+  pgdata:
+networks:
+  hydrowatch-net:
+    driver: bridge
