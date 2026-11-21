@@ -120,7 +120,6 @@ Create a `.env` file next to `docker-compose.yml`. Never commit it.
 |---|---|
 | `DB_PASSWORD` | PostgreSQL password |
 | `GEMINI_API_KEY` | LLM key for the RAG assistant |
-| `META_API_KEY` | LLM key for the RAG assistant |
 | `BOLNA_API_KEY`, `BOLNA_AGENT_ID` | Bolna credentials |
 | `BOLNA_OPERATOR_PHONE` | Primary operator, E.164 format (`+91...`) |
 | `BOLNA_ESCALATION_PHONE` | Second contact (empty disables escalation) |
@@ -143,7 +142,7 @@ The alert service listens on port 8080. PostgreSQL data persists in the `pgdata`
 ### 3. Connect the voice agent
 
 1. Run `ngrok http 8080` and note the HTTPS URL.
-2. In the Bolna dashboard, create an agent and paste the prompt from `docs/` ([TODO: add prompt file]).
+2. In the Bolna dashboard, create an agent and paste the prompt from `docs/`.
 3. Add the four tools above, using the ngrok URL and `Bearer <TOOLS_API_KEY>`.
 4. Set `BOLNA_ENABLED=true`, recreate the alert service, and trigger an abnormal reading.
 
